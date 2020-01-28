@@ -1,10 +1,11 @@
 package com.psycho.manager.utils
 
+import android.util.Base64
 import android.util.Log
 import com.topjohnwu.superuser.Shell
-import java.io.FileReader
-import java.io.FileWriter
-import kotlin.Exception
+import java.io.*
+import java.math.BigInteger
+import java.security.MessageDigest
 
 class FileUtils {
 
@@ -69,6 +70,33 @@ class FileUtils {
                     "chmod 0666 /sys/module/adreno_idler/parameters/adreno_idler_idleworkload",
                     "chmod 0666 /sys/module/adreno_idler/parameters/adreno_idler_downdifferential"
             )
+        }
+
+        @JvmStatic
+        fun calcHash(file: File, type: String): String? {
+            return try {
+                val buffer = ByteArray(8192)
+                var count: Int
+                val digest = MessageDigest.getInstance(type)
+                val bis = BufferedInputStream(FileInputStream(file))
+                while (bis.read(buffer).also { count = it } > 0) {
+                    digest.update(buffer, 0, count)
+                }
+                bis.close()
+
+                val hash = digest.digest()
+                val hexString = StringBuffer()
+                for (i in hash.indices) {
+                    val hex = Integer.toHexString(0xff and hash[i].toInt())
+                    if (hex.length == 1) hexString.append('0')
+                    hexString.append(hex)
+                }
+
+                hexString.toString()
+            } catch (e: Exception) {
+                Log.e("Hash Generation", "Failed to generate Hash", e)
+                null
+            }
         }
 
     }

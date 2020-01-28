@@ -16,6 +16,7 @@ class SettingsFragment : Fragment() {
 
     private lateinit var updStartup: SwitchMaterial
     private lateinit var updChannel: SwitchMaterial
+    private lateinit var startupProfiles: SwitchMaterial
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -25,11 +26,13 @@ class SettingsFragment : Fragment() {
 
         updStartup = view.findViewById(R.id.upd_start)
         updChannel = view.findViewById(R.id.beta_sign)
+        startupProfiles = view.findViewById(R.id.profile_start)
 
         if(sharedPreferences != null) {
 
             updStartup.isChecked = sharedPreferences.getBoolean("startup", true)
             updChannel.isChecked = sharedPreferences.getString("channel", "Stable").equals("Beta")
+            startupProfiles.isChecked = sharedPreferences.getBoolean("apply_profile_on_boot", true)
 
             updStartup.setOnClickListener {
                 if (!(sharedPreferences.edit().putBoolean("startup", updStartup.isChecked).commit()))
@@ -40,6 +43,11 @@ class SettingsFragment : Fragment() {
                 Choice.isMainRedrawn = 1
                 if(!(sharedPreferences.edit().putString("channel", if (sharedPreferences.getString("channel", "Stable").equals("Beta")) "Stable" else "Beta").commit()))
                     updChannel.toggle()
+            }
+
+            startupProfiles.setOnClickListener {
+                if(!(sharedPreferences.edit().putBoolean("apply_profile_on_boot", startupProfiles.isChecked).commit()))
+                    startupProfiles.toggle()
             }
 
             (activity as MainActivity).fab.setOnClickListener {

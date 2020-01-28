@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun switchFragments(oldChoice: Int) {
+    private fun switchFragments(oldChoice: Int) {
         when (Choice.choice) {
             0 -> {
                 val ft = supportFragmentManager.beginTransaction()

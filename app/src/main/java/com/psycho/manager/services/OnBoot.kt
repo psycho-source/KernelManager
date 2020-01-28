@@ -7,7 +7,9 @@ import android.content.Intent
 class OnBoot: BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        context?.startForegroundService(Intent(context, BootService::class.java))
+        val sharedPreferences = context?.getSharedPreferences("update", Context.MODE_PRIVATE)
+        if (sharedPreferences?.getBoolean("apply_profile_on_boot", true) != false)
+            context?.startForegroundService(Intent(context, BootService::class.java))
     }
 
 }

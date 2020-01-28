@@ -13,7 +13,7 @@
     <string name="status_head">"Status: "</string>
     <string name="last_head">"Last Check: "</string>
     <string name="channel_head">"Update Channel: "</string>
-    <string name="check_upd_start">Check for updates on startup</string>
+    <string name="check_upd_start">Check for updates on App startup</string>
     <string name="beta_sign">Check for beta releases</string>
     <string name="upd_checking">Checking for updates…</string>
     <string name="profile">Profiles</string>
@@ -30,4 +30,11 @@
     <string name="applying_values_on_boot">Applying settings in %d seconds</string>
     <string name="psycho_version">"Psycho Version: "</string>
     <string name="latest_version">"Latest Version: "</string>
+    <string name="set_prof_start">Apply profile on Device Boot</string>
+    <string name="new_update">New Update!</string>
+    <string name="dialog_version">Psycho Kernel v%1$s</string>
+    <string name="download_size">"Download Size: "</string>
+    <string name="size_value">%1$s MB</string>
+    <string name="download_button">Download</string>
+    <string name="cancel_button">Later</string>
 </resources>
